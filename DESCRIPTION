@@ -2,12 +2,13 @@ Package: splashr
 Type: Package
 Title: Tools to Work with the 'Splash' 'JavaScript' Rendering and
         Scraping Service
-Version: 0.4.0
-Date: 2017-08-26
+Version: 0.4.1
+Date: 2018-01-16
 Encoding: UTF-8
 Authors@R: c(
-      person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"))
-    )
+    person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
+           comment = c(ORCID = "0000-0001-5670-2640"))
+  )
 Maintainer: Bob Rudis <bob@rud.is>
 Description: 'Splash' <https://github.com/scrapinghub/splash> is a 'JavaScript' rendering service.
     It is a lightweight web browser with an 'HTTP' API, implemented in 'Python' using 'Twisted' 
@@ -21,13 +22,12 @@ BugReports: https://github.com/hrbrmstr/splashr/issues
 License: AGPL
 Suggests: testthat, tibble, jpeg, png, covr, knitr, rmarkdown
 Depends: R (>= 3.2.0)
-Imports: xml2, curl, httr, clipr, purrr, stats, utils, docker, magick,
-        scales, formatR, openssl, stringi, jsonlite, HARtools,
-        lubridate
-RoxygenNote: 6.0.1
+Imports: xml2, curl, httr, purrr, stats, utils, docker, magick, scales,
+        formatR, openssl, stringi, jsonlite, HARtools, lubridate
+RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2017-08-28 17:09:46 UTC; bob
-Author: Bob Rudis [aut, cre]
+Packaged: 2018-01-16 03:13:55 UTC; bob
+Author: Bob Rudis [aut, cre] (0000-0001-5670-2640)
 Repository: CRAN
-Date/Publication: 2017-08-29 21:41:48 UTC
+Date/Publication: 2018-01-16 04:38:22 UTC
