@@ -14,7 +14,7 @@
 #' @name splashr
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
-#' @import purrr httr magick docker
+#' @import purrr httr magick stevedore
 #' @importFrom stringi stri_split_regex stri_split_fixed stri_detect_regex stri_split_lines
 #' @importFrom HARtools writeHAR HARviewer renderHARviewer HARviewerOutput
 #' @importFrom xml2 read_html url_parse
@@ -26,6 +26,7 @@
 #' @importFrom formatR tidy_source
 #' @importFrom utils capture.output str
 #' @importFrom curl curl_unescape
+#' @importFrom dplyr data_frame as_data_frame
 NULL
 
 #' splashr exported operators

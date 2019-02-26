@@ -4,17 +4,30 @@
 \alias{start_splash}
 \title{Start a Splash server Docker container}
 \usage{
-start_splash(tag = "3.0")
+start_splash(tag = "latest", container_name = "splashr",
+  remove = FALSE, ...)
 }
 \arguments{
 \item{tag}{Splash Docker image tag to start}
+
+\item{container_name}{naem for the container. Defaults to "`splashr`".}
+
+\item{remove}{remove the Splash container instance after it's stopped?
+Defaults to `FALSE`.}
+
+\item{...}{passed on to Splash instance launch parameters}
 }
 \value{
-`docker` `container` object
+`stevedore` container object
 }
 \description{
 If using this in an automation context, you should consider adding a
 `Sys.sleep(3)` (or higher) after starting the docker container.
+}
+\details{
+This uses the `latest` image and passed the `--disable-browser-caches`
+parameter. If you do not want to use the 3.2.x+ versions of `Splash`
+you should use your own startup scripts vs this helper function.
 }
 \note{
 you need Docker running on your system and have pulled the container with

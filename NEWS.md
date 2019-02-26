@@ -1,3 +1,17 @@
+0.6.0
+
+* Switch Docker orchestration to the `stevedore` package
+* Fixed minor check on as.data.frame functions
+* Cleaned up splashr object printing
+* Added Android, Kindle, Apple TV & Chromecast user agents and updated 
+  other user agents
+* Updated Travis config to not use old docker pkg components
+
+0.5.0
+
+* support Splash API basic auth
+* `as_data_frame`/`as.data.frame` methods for HAR objects
+
 0.4.1
 
 * removed clipr usage due to CRAN

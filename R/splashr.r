@@ -2,14 +2,42 @@ splash_url <- function(splash_obj) { sprintf("http://%s:%s", splash_obj$host, sp
 
 #' Configure parameters for connecting to a Splash server
 #'
+#'
+#' @md
+#' @note There is a quick "helper" object named `splash_local` which is preconfigured
+#'       with `localhost` as the host name.
 #' @param host host or IP address
 #' @param port port the server is running on (default is 8050)
+#' @param user,pass leave `NULL` if basic auth is not configured. Otherwise,
+#'        fill in what you need for basic authentication.
 #' @export
 #' @examples \dontrun{
 #' sp <- splash()
 #' }
-splash <- function(host, port=8050L) {
-  list(host=host, port=port)
+splash <- function(host, port=8050L, user=NULL, pass=NULL) {
+  obj <- list(host=host, port=port, user=user, pass=pass)
+  class(obj) <- c("splashr", "list")
+  obj
+}
+
+#' Print for splashr
+#'
+#' @md
+#' @param x a splashr object
+#' @param ... unused
+#' @keywords internal
+#' @return x
+#' @export
+print.splashr <- function(x, ...) {
+
+  cat(
+    "<splashr instance connection; ",
+    if (length(x$user)) sprintf("%s@", x$user) else "",
+    x$host, ":", x$port, ">\n", sep=""
+  )
+
+  invisible(x)
+
 }
 
 #' @rdname splash
@@ -31,7 +59,12 @@ s_GET <- purrr::safely(GET)
 #' }
 splash_active <- function(splash_obj = splash_local) {
 
-  res <- s_GET(splash_url(splash_obj), path="_ping")
+  if (is.null(splash_obj$user)) {
+    res <- s_GET(splash_url(splash_obj), path="_ping")
+  } else {
+    res <- s_GET(splash_url(splash_obj), path="_ping",
+                 httr::authenticate(splash_obj$user, splash_obj$pass))
+  }
 
   if (is.null(res$result)) return(FALSE)
   if (httr::status_code(res$result) >=300) return(FALSE)
@@ -116,10 +149,18 @@ end
 #' }
 splash_debug <- function(splash_obj = splash_local) {
 
-  httr::GET(splash_url(splash_obj), path="_debug") %>%
-    httr::stop_for_status() %>%
-    httr::content(as="text", encoding="UTF-8") %>%
-    jsonlite::fromJSON() -> out
+  if (is.null(splash_obj$user)) {
+    httr::GET(splash_url(splash_obj), path="_debug") %>%
+      httr::stop_for_status() %>%
+      httr::content(as="text", encoding="UTF-8") %>%
+      jsonlite::fromJSON() -> out
+  } else {
+    httr::GET(splash_url(splash_obj), path="_debug",
+              httr::authenticate(splash_obj$user, splash_obj$pass)) %>%
+      httr::stop_for_status() %>%
+      httr::content(as="text", encoding="UTF-8") %>%
+      jsonlite::fromJSON() -> out
+  }
 
   out$url <- splash_url(splash_obj)
 
